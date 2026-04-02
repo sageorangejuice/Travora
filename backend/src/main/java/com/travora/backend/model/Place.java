@@ -31,7 +31,7 @@ public abstract class Place {
     @Column(name = "opening_hours", columnDefinition = "TEXT")
     private String openingHours;
 
-    @Column(name = "photo_reference")
+    @Column(name = "photo_reference", columnDefinition = "TEXT")
     private String photoReference;
 
     @Column(name = "last_updated")
