@@ -14,7 +14,7 @@ import com.travora.app.R;
 
 import android.content.Intent;
 
-public class MainActivity extends AppCompatActivity {
+public class StartActivity extends AppCompatActivity {
 
     Button startButton;
 
@@ -26,8 +26,9 @@ public class MainActivity extends AppCompatActivity {
         startButton = findViewById(R.id.start_button);
 
         startButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent); // optional: prevents going back
+            Intent intent = new Intent(StartActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish(); // optional: prevents going back
         });
     }
 }

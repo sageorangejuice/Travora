@@ -13,21 +13,14 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.travora.app.R;
 
 import android.content.Intent;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class ReccomendationsActivity extends AppCompatActivity {
 
-    Button startButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.test_layout_start);
-
-        startButton = findViewById(R.id.start_button);
-
-        startButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent); // optional: prevents going back
-        });
+        setContentView(R.layout.test_layout_reccomendations);
     }
 }
