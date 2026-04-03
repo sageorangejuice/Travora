@@ -1,4 +1,4 @@
-package com.travora.backend.model;
+package com.travora.app.model;
 
 public class LoginResponse{
 
