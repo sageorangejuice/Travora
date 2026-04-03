@@ -21,6 +21,7 @@ public class RecommendationsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.test_layout_recommendations);
     }
 }

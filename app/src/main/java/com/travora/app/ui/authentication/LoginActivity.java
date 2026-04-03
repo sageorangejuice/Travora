@@ -47,6 +47,9 @@ public class LoginActivity extends AppCompatActivity {
                     Intent toRecommendations = new Intent(LoginActivity.this, RecommendationsActivity.class);
                     startActivity(toRecommendations);
                 }
+                else {
+                    Toast.makeText(LoginActivity.this, "Please fill in all fields!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         sign_up.setOnClickListener(new View.OnClickListener() {
