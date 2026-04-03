@@ -1,4 +1,5 @@
-package com.travora.app.ui;
+package com.travora.app.ui.homepage;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.cardview.widget.CardView;
@@ -12,6 +13,9 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.travora.app.R;
 
+import com.travora.app.ui.homepage.StartActivity;
+import com.travora.app.ui.recommendations.RecommendationsActivity;
+import com.travora.app.ui.authentication.LoginActivity;
 import android.content.Intent;
 
 public class StartActivity extends AppCompatActivity {

@@ -1,4 +1,5 @@
-package com.travora.app.ui;
+package com.travora.app.ui.authentication;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.cardview.widget.CardView;
@@ -14,6 +15,9 @@ import com.travora.app.R;
 
 import android.content.Intent;
 import android.widget.Toast;
+
+import com.travora.app.ui.recommendations.RecommendationsActivity;
+import com.travora.app.ui.homepage.StartActivity;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText emailInput;
@@ -40,10 +44,12 @@ public class LoginActivity extends AppCompatActivity {
                 String password = passwordInput.getText().toString();
 
                 if (!email.isEmpty() && !password.isEmpty()){
-                    Intent toReccomendations = new Intent(LoginActivity.this, ReccomendationsActivity.class);
-                    startActivity(toReccomendations);
+                    Intent toRecommendations = new Intent(LoginActivity.this, RecommendationsActivity.class);
+                    startActivity(toRecommendations);
                 }
-                System.out.println("login successful");
+                else {
+                    Toast.makeText(LoginActivity.this, "Please fill in all fields!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         sign_up.setOnClickListener(new View.OnClickListener() {

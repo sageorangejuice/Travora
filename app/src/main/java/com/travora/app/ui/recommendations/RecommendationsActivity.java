@@ -1,4 +1,5 @@
-package com.travora.app.ui;
+package com.travora.app.ui.recommendations;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.cardview.widget.CardView;
@@ -15,12 +16,12 @@ import com.travora.app.R;
 import android.content.Intent;
 import android.widget.Toast;
 
-public class ReccomendationsActivity extends AppCompatActivity {
-
+public class RecommendationsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.test_layout_reccomendations);
+        setContentView(R.layout.test_layout_recommendations);
     }
 }
