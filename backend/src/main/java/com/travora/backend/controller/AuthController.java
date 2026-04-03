@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.travora.backend.model.LoginRequest;
+import com.travora.backend.model.LoginResponse;
 import com.travora.backend.service.AuthService;
 
 @RestController
@@ -18,7 +19,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public boolean memberExists(@RequestBody LoginRequest payload) {
+    public LoginResponse memberExists(@RequestBody LoginRequest payload) {
         return authService.login(payload);
     }
 }

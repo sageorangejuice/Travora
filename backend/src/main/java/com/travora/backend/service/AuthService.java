@@ -1,6 +1,7 @@
 package com.travora.backend.service;
 
 import com.travora.backend.model.LoginRequest;
+import com.travora.backend.model.LoginResponse;
 import com.travora.backend.model.User;
 import com.travora.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -15,15 +16,14 @@ public class AuthService {
         this.userRepository = userRepository;
     }
 
-    public boolean login(LoginRequest payload) {
+    public LoginResponse login(LoginRequest payload) {
         User user = userRepository.findByUsername(payload.getUsername());
 
         if (user == null) {
-            return false;  
+            return new LoginResponse(false);
         }
 
-        return user.getPasswordFromDatabase().equals(payload.getPassword());
-       
+        return new LoginResponse(user.getPasswordFromDatabase().equals(payload.getPassword()));
     }
 }
 
