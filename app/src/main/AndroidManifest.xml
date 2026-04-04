@@ -11,15 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Travora">
+
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.homepage.StartActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.authentication.LoginActivity" />
+        <activity android:name=".ui.authentication.RegistrationActivity" />
+        <activity android:name=".ui.recommendations.RecommendationsActivity" />
+
     </application>
 
 </manifest>
