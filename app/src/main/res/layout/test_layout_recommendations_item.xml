@@ -28,7 +28,7 @@
             tools:src="@drawable/sample_image" />
 
         <RatingBar
-            android:id="@+id/ratingBar"
+            android:id="@+id/item_ratingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:progressTint="#FFD700"
@@ -59,7 +59,7 @@
             android:textColor="#DDFFFFFF"
             tools:text="Description Placeholder"/>
         <Button
-            android:id="@+id/reviews"
+            android:id="@+id/item_reviews"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Reviews"
