@@ -2,14 +2,14 @@ package com.travora.backend.model;
 
 public class LoginResponse{
 
-    private boolean response;
+    private boolean success;
 
-    public LoginResponse(boolean response){
-        this.response = response;
+    public LoginResponse(boolean success){
+        this.success = success;
     }
 
-    public boolean isResponse() {
-        return response;
+    public boolean isSuccess() {
+        return success;
     }
 
 }
