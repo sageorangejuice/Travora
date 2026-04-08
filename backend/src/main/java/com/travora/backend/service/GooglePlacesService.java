@@ -84,9 +84,18 @@ public class GooglePlacesService {
                 place.setName(node.get("name").asText());
                 place.setAddress(node.path("vicinity").asText(null));
                 place.setRating(node.path("rating").asDouble(0.0));
-                place.setPhotoReference(
-                        node.path("photos").path(0).path("photo_reference").asText(null)
-                );
+                String photoRef = node.path("photos").path(0).path("photo_reference").asText(null);
+                place.setPhotoReference(photoRef);
+                if (photoRef != null) {
+                    String photoUrl = "https://maps.googleapis.com/maps/api/place/photo"
+                            + "?maxwidth=400&photo_reference=" + photoRef + "&key=" + apiKey;
+                    try {
+                        byte[] imageBytes = restTemplate.getForObject(photoUrl, byte[].class);
+                        place.setPhotoData(imageBytes);
+                    } catch (Exception e) {
+                        System.err.println("Failed to download photo for " + place.getName() + ": " + e.getMessage());
+                    }
+                }
                 place.setLastUpdated(LocalDateTime.now());
                 places.add(place);
                 count++;
@@ -98,6 +107,9 @@ public class GooglePlacesService {
                                 existing -> {
                                     existing.setRating(p.getRating());
                                     existing.setLastUpdated(p.getLastUpdated());
+                                    if (p.getPhotoData() != null) {
+                                        existing.setPhotoData(p.getPhotoData());
+                                    }
                                     repository.save(existing); // UPDATE
                                 },
                                 () -> repository.save(p)       // INSERT
