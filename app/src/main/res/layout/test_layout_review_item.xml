@@ -17,26 +17,16 @@
         android:orientation="vertical"
         android:padding="12dp">
 
-        <!-- Image for the item -->
-        <ImageView
-            android:id="@+id/item_image"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:contentDescription="Item Image"
-            android:clipToOutline="true"
-            tools:src="@drawable/sample_image" /> <!-- placeholder -->
 
-        <!-- Title -->
         <RatingBar
-            android:id="@+id/ratingBar"
+            android:id="@+id/item_user_ratingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:numStars="5"
             android:stepSize="0.5"/>
 
         <TextView
-            android:id="@+id/item_title"
+            android:id="@+id/item_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -46,9 +36,9 @@
             android:textColor="#FFFFFF"
             tools:text="Title Placeholder"/>
 
-        <!-- Description -->
+
         <TextView
-            android:id="@+id/item_desc"
+            android:id="@+id/item_user_review"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"

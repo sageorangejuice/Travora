@@ -21,6 +21,7 @@ public class RecommendationsActivity extends AppCompatActivity {
     private Button diningButton;
     private Button activitiesButton;
     private Button searchButton;
+    private Button reviewsButton;
     private EditText searchBar;
     private RecyclerView recyclerView;
     private RecommendationsAdapter adapter;
