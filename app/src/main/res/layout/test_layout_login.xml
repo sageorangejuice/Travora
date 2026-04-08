@@ -14,6 +14,21 @@
         android:textStyle="bold"
         android:textColor="@color/white"
         tools:ignore="MissingConstraints" />
+    <ImageView
+        android:id="@+id/travora_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:scaleX="5"
+        android:scaleY="5"
+        android:src="@drawable/test_travora"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
     <EditText
         android:id="@+id/email"
         android:layout_width="300dp"
@@ -72,38 +87,46 @@
         app:layout_constraintTop_toBottomOf="@id/sign_in_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-    <TextView
-        android:id="@+id/dhac"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dont have an account?"
-        android:textStyle=""
-        android:textSize="15dp"
-        android:textColor="#90FFFFFF"
-        android:background="@android:color/transparent"
-        android:paddingStart="0dp"
-        android:paddingEnd="0dp"
-        android:minWidth="0dp"
-        android:minHeight="0dp"
-        app:layout_constraintTop_toBottomOf="@id/forgot_password_button"
-        app:layout_constraintEnd_toStartOf="@id/sign_in_button"
-        app:layout_constraintHorizontal_chainStyle="packed"/>
-    <Button
-        android:id="@+id/sign_up_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" Sign up!"
-        android:textStyle="bold"
-        android:textSize="15dp"
-        android:textColor="#90FFFFFF"
-        android:background="@android:color/transparent"
-        android:paddingStart="0dp"
-        android:paddingEnd="0dp"
-        android:minWidth="0dp"
-        android:minHeight="0dp"
-        app:layout_constraintStart_toEndOf="@id/dhac"
-        app:layout_constraintBaseline_toBaselineOf="@id/dhac"
-        app:layout_constraintHorizontal_chainStyle="packed"/>
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/forgot_password_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <TextView
+            android:id="@+id/dhac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dont have an account?"
+            android:textStyle=""
+            android:textSize="15dp"
+            android:textColor="#90FFFFFF"
+            android:background="@android:color/transparent"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            app:layout_constraintHorizontal_chainStyle="packed"/>
+        <Button
+            android:id="@+id/sign_up_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Sign up!"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:textColor="#90FFFFFF"
+            android:background="@android:color/transparent"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            app:layout_constraintStart_toEndOf="@id/dhac"
+            app:layout_constraintBaseline_toBaselineOf="@id/dhac"
+            app:layout_constraintHorizontal_chainStyle="packed"/>
+
+    </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,22 +1,14 @@
 package com.travora.app.ui.homepage;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.cardview.widget.CardView;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.EditText;
-import android.widget.ImageView;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputLayout;
 import com.travora.app.R;
-
-import com.travora.app.ui.homepage.StartActivity;
-import com.travora.app.ui.recommendations.RecommendationsActivity;
 import com.travora.app.ui.authentication.LoginActivity;
+import com.travora.app.ui.recommendations.RecommendationsActivity;
 import android.content.Intent;
+import android.widget.Toast;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -29,10 +21,15 @@ public class StartActivity extends AppCompatActivity {
 
         startButton = findViewById(R.id.start_button);
 
-        startButton.setOnClickListener(v -> {
-            Intent intent = new Intent(StartActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish(); // optional: prevents going back
-        });
+        if (startButton != null) {
+            startButton.setOnClickListener(v -> {
+                Log.d("StartActivity", "Let's Go Button clicked!");
+                Intent intent = new Intent(StartActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            });
+        } else {
+            Log.e("StartActivity", "Start button not found in layout!");
+        }
     }
 }
