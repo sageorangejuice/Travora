@@ -1,5 +1,6 @@
 package com.travora.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -34,6 +35,10 @@ public abstract class Place {
     @Column(name = "photo_reference", columnDefinition = "TEXT")
     private String photoReference;
 
+    @JsonIgnore
+    @Column(name = "photo_data", columnDefinition = "bytea")
+    private byte[] photoData;
+
     @Column(name = "last_updated")
     private LocalDateTime lastUpdated;
 
@@ -63,6 +68,9 @@ public abstract class Place {
 
     public String getPhotoReference() { return photoReference; }
     public void setPhotoReference(String photoReference) { this.photoReference = photoReference; }
+
+    public byte[] getPhotoData() { return photoData; }
+    public void setPhotoData(byte[] photoData) { this.photoData = photoData; }
 
     public LocalDateTime getLastUpdated() { return lastUpdated; }
     public void setLastUpdated(LocalDateTime lastUpdated) { this.lastUpdated = lastUpdated; }

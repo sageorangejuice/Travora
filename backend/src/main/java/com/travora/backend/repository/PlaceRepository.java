@@ -17,4 +17,7 @@ public interface PlaceRepository<T extends Place> extends JpaRepository<T, Long>
 
     // gets details after user clicks
     Optional<T> findByPlaceId(String placeId);
+
+    // used to serve stored photo bytes
+    Optional<T> findByPhotoReference(String photoReference);
 }
