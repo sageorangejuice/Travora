@@ -35,7 +35,7 @@ public class AuthService {
         }
 
         logger.debug("[AUTH SERVICE] User found. Verifying password...");
-        boolean passwordMatch = passwordEncoder.matches(payload.getPassword(), user.getPasswordFromDatabase());
+        boolean passwordMatch = user.verifyPassword(payload.getPassword());
         logger.debug("[AUTH SERVICE] Password match: {}", passwordMatch);
         return new LoginResponse(passwordMatch);
     }
