@@ -1,8 +1,10 @@
 package com.travora.app.ui.recommendations;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -14,12 +16,14 @@ import com.bumptech.glide.Glide;
 import com.travora.app.R;
 import com.travora.app.model.Places;
 import com.travora.app.network.RetrofitClient;
+import com.travora.app.ui.reviews.ReviewsActivity;
 
 import java.util.List;
 
 public class RecommendationsAdapter extends RecyclerView.Adapter<RecommendationsAdapter.ViewHolder> {
 
     private List<Places> placesList;
+    private Button reviewsButton;
 
     public RecommendationsAdapter(List<Places> list) {
         this.placesList = list;
@@ -46,6 +50,14 @@ public class RecommendationsAdapter extends RecyclerView.Adapter<Recommendations
         holder.description.setText(place.getAddress() != null ? place.getAddress() : "");
         holder.ratingBar.setRating(place.getRating().floatValue());
         String photoRef = place.getPhotoReference();
+        reviewsButton = holder.itemView.findViewById(R.id.item_reviews);
+
+        reviewsButton.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), ReviewsActivity.class);
+            intent.putExtra("place", place);
+            view.getContext().startActivity(intent);
+        });
+
         if (photoRef != null && !photoRef.isEmpty()) {
             String photoUrl = RetrofitClient.BASE_URL + "api/places/photo?reference=" + photoRef + "&maxwidth=400";
             Glide.with(holder.image.getContext())

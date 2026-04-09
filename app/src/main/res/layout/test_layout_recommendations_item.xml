@@ -9,6 +9,15 @@
     app:cardElevation="6dp"
     app:cardBackgroundColor="#80FFFFFF"
     android:foreground="?android:attr/selectableItemBackground">
+    <Button
+        android:id="@+id/item_reviews"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"/>
 
     <!-- LinearLayout inside CardView for content -->
     <LinearLayout
@@ -58,19 +67,7 @@
             android:textSize="14sp"
             android:textColor="#DDFFFFFF"
             tools:text="Description Placeholder"/>
-        <Button
-            android:id="@+id/item_reviews"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Reviews"
-            android:textStyle=""
-            android:textSize="15dp"
-            android:textColor="@color/white"
-            android:background="@android:color/transparent"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
-            android:minWidth="0dp"
-            android:minHeight="0dp"/>
+
 
     </LinearLayout>
 

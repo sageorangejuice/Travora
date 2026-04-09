@@ -28,7 +28,7 @@
             android:id="@+id/activity_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="activity name"
+            android:text="Reviews"
             android:textSize="60sp"
             android:textColor="@color/white"
             android:textStyle="bold"
@@ -89,8 +89,46 @@
             android:layout_gravity="center_vertical">
 
         </LinearLayout>
+        <ImageView
+            android:id="@+id/place_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="Item Image"
+            android:clipToOutline="true"
+            tools:src="@drawable/sample_image" /> <!-- placeholder -->
+
+        <!-- Title -->
+        <RatingBar
+            android:id="@+id/place_ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="0.5"/>
+
+        <TextView
+            android:id="@+id/place_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Sample Title"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            tools:text="Title Placeholder"/>
+
+        <!-- Description -->
+        <TextView
+            android:id="@+id/place_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Sample Description"
+            android:textSize="14sp"
+            android:textColor="#DDFFFFFF"
+            tools:text="Description Placeholder"/>
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+            android:id="@+id/reviews_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"/>
