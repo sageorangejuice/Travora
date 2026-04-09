@@ -14,7 +14,6 @@ public class RecommendationService {
 
     private final DiningRepository diningRepository;
     private final ActivityRepository activityRepository;
-    private final ScoringStrategy scoringStrategy; // Loose Coupling: interface, not concrete class
 
     public RecommendationService(
             DiningRepository diningRepository,
