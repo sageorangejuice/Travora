@@ -9,10 +9,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.travora.app.R;
 import com.travora.app.viewmodel.RegistrationViewModel;
+import com.travora.app.ui.profile.ProfilingActivity;
+
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    private EditText fullNameInput;
+    private EditText usernameInput; // ✅ Changed from fullNameInput
     private EditText emailInput;
     private EditText phoneNumberInput;
     private EditText passwordInput;
@@ -25,7 +27,8 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_layout_registration);
 
-        fullNameInput = findViewById(R.id.full_name);
+        // ✅ Updated to use the new ID 'username' from the XML
+        usernameInput = findViewById(R.id.username); 
         emailInput = findViewById(R.id.email);
         phoneNumberInput = findViewById(R.id.phone_number);
         passwordInput = findViewById(R.id.password);
@@ -36,8 +39,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
         registrationViewModel.getRegistrationResult().observe(this, response -> {
             if (response != null && response.isSuccess()) {
-                Toast.makeText(this, "Account created! Please sign in.", Toast.LENGTH_SHORT).show();
-                Intent toLogin = new Intent(RegistrationActivity.this, LoginActivity.class);
+                Toast.makeText(this, "Account created! Please tell us more about yourself.", Toast.LENGTH_SHORT).show();
+                Intent toLogin = new Intent(RegistrationActivity.this, ProfilingActivity.class);
                 toLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(toLogin);
                 finish();
@@ -50,13 +53,13 @@ public class RegistrationActivity extends AppCompatActivity {
         });
 
         signUpButton.setOnClickListener(view -> {
-            String fullName = fullNameInput.getText().toString().trim();
+            String username = usernameInput.getText().toString().trim(); // ✅ Changed fullName to username
             String email = emailInput.getText().toString().trim();
             String phoneNumber = phoneNumberInput.getText().toString().trim();
             String password = passwordInput.getText().toString().trim();
             String rePassword = rePasswordInput.getText().toString().trim();
 
-            if (fullName.isEmpty() || email.isEmpty() || phoneNumber.isEmpty()
+            if (username.isEmpty() || email.isEmpty() || phoneNumber.isEmpty()
                     || password.isEmpty() || rePassword.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields!", Toast.LENGTH_SHORT).show();
                 return;
@@ -65,7 +68,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 Toast.makeText(this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
                 return;
             }
-            registrationViewModel.registerUser(fullName, email, phoneNumber, password);
+            // ✅ Passing 'username' to the ViewModel
+            registrationViewModel.registerUser(username, email, phoneNumber, password);
         });
     }
 }

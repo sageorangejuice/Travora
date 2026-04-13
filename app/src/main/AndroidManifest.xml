@@ -26,8 +26,8 @@
 
         <activity android:name=".ui.authentication.LoginActivity" />
         <activity android:name=".ui.authentication.RegistrationActivity" />
+        <activity android:name=".ui.authentication.LocationActivity" />
         <activity android:name=".ui.recommendations.RecommendationsActivity" />
-        <activity android:name=".ui.homepage.HomeActivity" />
 
     </application>
 
