@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/test_background_recommendations">
+
+    <com.travora.app.ui.anim.BubbleBackgroundView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/main_vertical_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:gravity="center_horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/nav_bar">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:textSize="42sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginBottom="32dp" />
+
+            <!-- Avatar circle with initial -->
+            <FrameLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#50FFFFFF"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:id="@+id/avatar_initial"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="?"
+                    android:textSize="32sp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/username_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="USERNAME"
+                android:textSize="11sp"
+                android:letterSpacing="0.15"
+                android:textColor="#AAFFFFFF"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/username_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="—"
+                android:textSize="24sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Travora Member"
+                android:textSize="13sp"
+                android:textColor="#99FFFFFF"
+                android:layout_marginBottom="48dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/logout_button"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:text="Log Out"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                app:backgroundTint="#99CC3333"
+                app:strokeWidth="0dp"
+                app:rippleColor="#70FF6666"
+                app:cornerRadius="8dp"/>
+
+        </LinearLayout>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/nav_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:menu="@menu/nav_bar"
+            app:itemIconTint="@null"
+            app:itemTextColor="@color/white"
+            android:background="#CC000000"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

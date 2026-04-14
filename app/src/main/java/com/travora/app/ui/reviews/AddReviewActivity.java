@@ -9,16 +9,17 @@ import android.widget.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.travora.app.R;
 import com.travora.app.model.Places;
 import com.travora.app.model.Reviews;
 import com.travora.app.model.UserManager;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.travora.app.ui.recommendations.RecommendationsActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.travora.app.viewmodel.ReviewsViewModel;
 
-import java.util.ArrayList;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.travora.app.ui.profile.ProfileActivity;
+import com.travora.app.ui.recommendations.RecommendationsActivity;
 
 public class AddReviewActivity extends AppCompatActivity {
 
@@ -30,12 +31,12 @@ public class AddReviewActivity extends AppCompatActivity {
 
     private String selectedType = "Local";
     private BottomNavigationView navView;
+    private ReviewsViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_layout_addreview);
-        // ✅ AGGRESSIVE FIX: Completely strip all tinting from the nav bar and its items
         navView = findViewById(R.id.nav_bar);
         if (navView != null) {
             navView.setItemIconTintList(null); // Remove global tint
@@ -44,7 +45,6 @@ public class AddReviewActivity extends AppCompatActivity {
                 MenuItem item = menu.getItem(i);
                 Drawable icon = item.getIcon();
                 if (icon != null) {
-                    // Force the drawable to ignore any system tinting
                     Drawable wrappedIcon = DrawableCompat.wrap(icon.mutate());
                     DrawableCompat.setTintList(wrappedIcon, null);
                     item.setIcon(wrappedIcon);
@@ -59,24 +59,27 @@ public class AddReviewActivity extends AppCompatActivity {
 
             if (id == R.id.nav_home) {
                 startActivity(new Intent(this, RecommendationsActivity.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 return true;
 
             } else if (id == R.id.nav_profile) {
-                Toast.makeText(AddReviewActivity.this, "Feature Coming Soon", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, ProfileActivity.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 return true;
 
             } else if (id == R.id.nav_back) {
-                finish(); // 🔙 goes back
+                finish();
                 return true;
             }
 
             return false;
         });
 
-        // ===== GET PLACE =====
+        UserManager.loadFromPrefs(this);
+        viewModel = new ViewModelProvider(this).get(ReviewsViewModel.class);
+
         place = (Places) getIntent().getSerializableExtra("place");
 
-        // ===== INIT UI =====
         reviewInput = findViewById(R.id.review_input);
         ratingBar = findViewById(R.id.place_ratingBar);
 
@@ -84,7 +87,6 @@ public class AddReviewActivity extends AppCompatActivity {
         touristButton = findViewById(R.id.Tourist_button);
         submitButton = findViewById(R.id.submit_review_button);
 
-        // ===== BUTTON TOGGLE =====
         highlightSelected(localButton, touristButton);
 
         localButton.setOnClickListener(v -> {
@@ -97,7 +99,6 @@ public class AddReviewActivity extends AppCompatActivity {
             highlightSelected(touristButton, localButton);
         });
 
-        // ===== SUBMIT =====
         submitButton.setOnClickListener(v -> {
 
             String text = reviewInput.getText().toString().trim();
@@ -108,21 +109,16 @@ public class AddReviewActivity extends AppCompatActivity {
                 return;
             }
 
-            // 🔥 GET USERNAME
             String username = "Anonymous";
             if (UserManager.getUser() != null) {
                 username = UserManager.getUser().getUsername();
             }
 
-            Reviews newReview = new Reviews(
-                    selectedType,
-                    username,
-                    text,
-                    rating
-            );
+            Reviews newReview = new Reviews(selectedType, username, text, rating);
+            newReview.setPlaceId(place.getPlaceId());
 
-            // In a real app, you'd add this to the database. 
-            // For now, we pass it back to the ReviewsActivity.
+            viewModel.submitReview(newReview);
+
             Intent resultIntent = new Intent();
             resultIntent.putExtra("new_review", newReview);
             setResult(RESULT_OK, resultIntent);

@@ -6,12 +6,10 @@
     android:layout_height="match_parent"
     android:background="@drawable/test_background_recommendations">
 
-    <!-- 🔵 BUBBLE ANIMATION -->
     <com.travora.app.ui.anim.BubbleBackgroundView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- 🟣 UI CONTENT -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,12 +17,12 @@
         <LinearLayout
             android:id="@+id/main_vertical_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:orientation="vertical"
             android:padding="16dp"
             android:gravity="center_horizontal"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/nav_bar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
@@ -33,10 +31,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Where to?"
-                android:textSize="60sp"
+                android:textSize="42sp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginBottom="-20dp"/>
+                android:layout_marginBottom="4dp"/>
 
             <LinearLayout
                 android:id="@+id/categories_button_row"
@@ -44,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:layout_marginTop="8dp">
+                android:layout_marginBottom="8dp">
 
                 <Button
                     android:id="@+id/dining_button"
@@ -68,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Activities"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textColor="@color/white"
                     android:background="@android:color/transparent"
                     android:paddingStart="0dp"
@@ -82,20 +80,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
 
-                <EditText
-                    android:id="@+id/search_bar"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="  Destination"
-                    android:textColorHint="@color/white"
-                    android:textStyle="italic"
-                    android:textSize="20sp"
-                    android:inputType="text"
-                    android:padding="8dp"
-                    android:background="#50FFFFFF"/>
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:hintTextColor="#CCFFFFFF"
+                    app:boxStrokeColor="#80FFFFFF"
+                    app:boxBackgroundColor="#30FFFFFF"
+                    android:hint="Search destination">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/search_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textColorHint="#99FFFFFF"
+                        android:textSize="15sp"
+                        android:inputType="text"
+                        android:singleLine="true" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/search_button"
@@ -103,12 +110,12 @@
                     android:layout_height="wrap_content"
                     android:text="Search"
                     android:textStyle="bold"
-                    android:textSize="15dp"
+                    android:textSize="14sp"
                     android:textColor="@color/white"
                     app:backgroundTint="#50FFFFFF"
                     app:strokeWidth="0dp"
-                    app:strokeColor="#FFFFFF"
                     app:rippleColor="#70FFFFFF"
+                    app:cornerRadius="8dp"
                     android:layout_marginStart="8dp"/>
             </LinearLayout>
 
@@ -116,10 +123,20 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginTop="16dp"/>
+                android:layout_weight="1"/>
 
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:indeterminateTint="#FFFFFF"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/nav_bar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_bar"
@@ -129,7 +146,8 @@
             app:menu="@menu/nav_bar"
             app:itemIconTint="@null"
             app:itemTextColor="@color/white"
-            android:background="#40000000"
+            android:background="#CC000000"
             app:layout_constraintBottom_toBottomOf="parent"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

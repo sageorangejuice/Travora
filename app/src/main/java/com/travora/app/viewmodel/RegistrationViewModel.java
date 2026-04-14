@@ -15,8 +15,10 @@ public class RegistrationViewModel extends ViewModel {
         return registrationResult;
     }
 
-    public void registerUser(String fullName, String email, String phoneNumber, String password) {
-        RegistrationRequest request = new RegistrationRequest(fullName, email, phoneNumber, password);
+    public void registerUser(String username, String email, String phoneNumber, String password,
+                             String prefBudget, String prefDiet, String prefActivity, String prefDining) {
+        RegistrationRequest request = new RegistrationRequest(
+                username, email, phoneNumber, password, prefBudget, prefDiet, prefActivity, prefDining);
         repository.register(request, registrationResult);
     }
 }

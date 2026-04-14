@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.travora.app.model.Places;
+import com.travora.app.model.Reviews;
 import com.travora.app.network.RetrofitClient;
 
 import java.util.List;
@@ -63,6 +64,41 @@ public class PlacesRepository {
             public void onFailure(Call<List<Places>> call, Throwable t) {
                 Log.e(TAG, "fetchActivities onFailure - " + t.getMessage(), t);
                 activitiesResult.postValue(null);
+            }
+        });
+    }
+
+    public void submitReview(Reviews review) {
+        RetrofitClient.getApiService().postReview(review).enqueue(new Callback<Reviews>() {
+            @Override
+            public void onResponse(Call<Reviews> call, Response<Reviews> response) {
+                if (!response.isSuccessful()) {
+                    Log.w(TAG, "submitReview failed - code: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Reviews> call, Throwable t) {
+                Log.e(TAG, "submitReview onFailure - " + t.getMessage(), t);
+            }
+        });
+    }
+
+    public void fetchReviews(String placeId, MutableLiveData<List<Reviews>> result) {
+        RetrofitClient.getApiService().getReviews(placeId).enqueue(new Callback<List<Reviews>>() {
+            @Override
+            public void onResponse(Call<List<Reviews>> call, Response<List<Reviews>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    result.postValue(response.body());
+                } else {
+                    result.postValue(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Reviews>> call, Throwable t) {
+                Log.e(TAG, "fetchReviews onFailure - " + t.getMessage(), t);
+                result.postValue(null);
             }
         });
     }

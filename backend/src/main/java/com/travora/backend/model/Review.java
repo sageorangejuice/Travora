@@ -11,20 +11,18 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // References place_id in either the dining or activities table
     @Column(name = "place_id", nullable = false)
     private String placeId;
 
     @Column(name = "username", nullable = false)
     private String username;
 
-    @Column(name = "review", columnDefinition = "TEXT", nullable = false)
+    @Column(name = "review", length = 2000, nullable = false)
     private String review;
 
     @Column(name = "user_rating", nullable = false)
     private Float userRating;
 
-    // "Local" or "Tourist"
     @Column(name = "type", nullable = false)
     private String type;
 
@@ -32,6 +30,7 @@ public class Review {
     private LocalDateTime createdAt;
 
     public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public String getPlaceId() { return placeId; }
     public void setPlaceId(String placeId) { this.placeId = placeId; }

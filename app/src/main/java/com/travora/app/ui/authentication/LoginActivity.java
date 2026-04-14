@@ -11,7 +11,6 @@ import android.widget.Toast;
 import com.travora.app.R;
 import com.travora.app.ui.recommendations.RecommendationsActivity;
 import com.travora.app.viewmodel.LoginViewModel;
-import com.travora.app.model.User;
 import com.travora.app.model.UserManager;
 
 public class LoginActivity extends AppCompatActivity {
@@ -38,18 +37,11 @@ public class LoginActivity extends AppCompatActivity {
 
         loginViewModel.getLoginResult().observe(this, loginResponse -> {
             if (loginResponse != null && loginResponse.isSuccess()) {
-                String username = loginResponse.getUsername();
-                
-                if (username == null || username.isEmpty()) {
-                    username = emailInput.getText().toString().split("@")[0];
-                }
+                UserManager.saveToPrefs(LoginActivity.this, loginResponse.getUsername());
 
-                User user = new User(username);
-                UserManager.setUser(user);
-
-                // ✅ Updated: Now goes to LocationActivity after successful login
                 Intent intent = new Intent(LoginActivity.this, LocationActivity.class);
                 startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
             } else {
                 Toast.makeText(LoginActivity.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
@@ -57,10 +49,10 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         sign_in.setOnClickListener(view -> {
-            String email = emailInput.getText().toString().trim();
+            String username = emailInput.getText().toString().trim();
             String password = passwordInput.getText().toString().trim();
-            if (!email.isEmpty() && !password.isEmpty()) {
-                loginViewModel.loginUser(email, password);
+            if (!username.isEmpty() && !password.isEmpty()) {
+                loginViewModel.loginUser(username, password);
             } else {
                 Toast.makeText(LoginActivity.this, "Please fill in all fields!", Toast.LENGTH_SHORT).show();
             }
@@ -69,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         sign_up.setOnClickListener(view -> {
             Intent toRegistration = new Intent(LoginActivity.this, RegistrationActivity.class);
             startActivity(toRegistration);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
 
         forgot_password.setOnClickListener(view ->

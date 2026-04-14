@@ -4,6 +4,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import com.travora.app.model.LoginRequest;
 import com.travora.app.model.LoginResponse;
+import com.travora.app.model.ProfilingRequest;
 import com.travora.app.model.RegistrationRequest;
 import com.travora.app.model.RegistrationResponse;
 import com.travora.app.network.RetrofitClient;
@@ -16,8 +17,7 @@ public class AuthRepository {
     private static final String TAG = "AuthRepository";
 
     public void login(LoginRequest request, MutableLiveData<LoginResponse> loginResult) {
-        // ✅ Updated to log Email instead of Username
-        Log.d(TAG, "login() called - email: " + request.getEmail());
+        Log.d(TAG, "login() called - username: " + request.getUsername());
         RetrofitClient.getApiService().login(request).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
@@ -27,7 +27,6 @@ public class AuthRepository {
                     loginResult.postValue(response.body());
                 } else {
                     Log.w(TAG, "login failed - code: " + response.code());
-                    // ✅ Fixed: LoginResponse now expects (boolean, String)
                     loginResult.postValue(new LoginResponse(false, null));
                 }
             }
@@ -36,6 +35,21 @@ public class AuthRepository {
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 Log.e(TAG, "login onFailure - " + t.getMessage(), t);
                 loginResult.postValue(new LoginResponse(false, null));
+            }
+        });
+    }
+
+    public void savePreferences(ProfilingRequest request, MutableLiveData<Boolean> result) {
+        RetrofitClient.getApiService().savePreferences(request).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                result.postValue(response.isSuccessful());
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e(TAG, "savePreferences onFailure - " + t.getMessage(), t);
+                result.postValue(false);
             }
         });
     }

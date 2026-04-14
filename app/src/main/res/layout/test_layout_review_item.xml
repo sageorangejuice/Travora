@@ -18,23 +18,27 @@
         android:padding="12dp">
 
 
-        <RatingBar
-            android:id="@+id/item_user_ratingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numStars="5"
-            android:stepSize="0.5"/>
-
         <TextView
             android:id="@+id/item_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:text="Sample Title"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="#FFFFFF"
             tools:text="Title Placeholder"/>
+
+        <RatingBar
+            android:id="@+id/item_user_ratingBar"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:numStars="5"
+            android:stepSize="0.5"
+            android:isIndicator="true"
+            android:progressTint="#FFD700"
+            android:progressBackgroundTint="#CCCCCC"/>
 
 
         <TextView

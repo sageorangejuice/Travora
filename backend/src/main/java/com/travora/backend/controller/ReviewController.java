@@ -22,4 +22,9 @@ public class ReviewController {
     public ResponseEntity<List<Review>> getReviews(@RequestParam String placeId) {
         return ResponseEntity.ok(reviewService.getReviewsForPlace(placeId));
     }
+
+    @PostMapping
+    public ResponseEntity<Review> addReview(@RequestBody Review review) {
+        return ResponseEntity.ok(reviewService.saveReview(review));
+    }
 }

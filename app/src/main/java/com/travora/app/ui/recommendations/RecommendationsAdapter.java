@@ -23,7 +23,6 @@ import java.util.List;
 public class RecommendationsAdapter extends RecyclerView.Adapter<RecommendationsAdapter.ViewHolder> {
 
     private List<Places> placesList;
-    private Button reviewsButton;
 
     public RecommendationsAdapter(List<Places> list) {
         this.placesList = list;
@@ -47,10 +46,13 @@ public class RecommendationsAdapter extends RecyclerView.Adapter<Recommendations
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Places place = placesList.get(position);
         holder.title.setText(place.getName());
-        holder.description.setText(place.getAddress() != null ? place.getAddress() : "");
+        String desc = (place.getDescription() != null && !place.getDescription().isEmpty())
+                ? place.getDescription()
+                : (place.getAddress() != null ? place.getAddress() : "");
+        holder.description.setText(desc);
         holder.ratingBar.setRating(place.getRating().floatValue());
         String photoRef = place.getPhotoReference();
-        reviewsButton = holder.itemView.findViewById(R.id.item_reviews);
+        Button reviewsButton = holder.itemView.findViewById(R.id.item_reviews);
 
         reviewsButton.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext(), ReviewsActivity.class);

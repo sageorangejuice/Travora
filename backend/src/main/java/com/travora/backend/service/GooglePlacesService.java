@@ -23,7 +23,7 @@ public class GooglePlacesService {
 
     private final DiningRepository diningRepository;
     private final ActivityRepository activityRepository;
-    private final RestTemplate restTemplate = new RestTemplate(); // Singleton handled on the frontend
+    private final RestTemplate restTemplate = new RestTemplate();
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final String apiKey;
     private final String location;
@@ -42,21 +42,14 @@ public class GooglePlacesService {
         this.radius = radius;
     }
 
-    // Runs every day at midnight
     @Scheduled(cron = "0 0 0 * * *")
     public void refreshAllPlaces() {
         System.out.println("Starting daily Google Places refresh...");
         fetchAndSave("restaurant", diningRepository, Dining::new);
         fetchAndSave("tourist_attraction", activityRepository, Activity::new);
         System.out.println("Daily refresh complete.");
-
-        // Observer Pattern note: after this refresh, the Android ViewModel layer
-        // should observe data changes via LiveData to auto-update the UI.
-        // See: PlaceViewModel (Android) — not implemented in this backend.
     }
 
-    // DRY: one method handles both Dining and Activity fetching via generics.
-    // Single Responsibility: this method only handles fetch + upsert logic.
     private <T extends Place> void fetchAndSave(
             String placeType,
             PlaceRepository<T> repository,
