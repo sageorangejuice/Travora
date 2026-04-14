@@ -21,8 +21,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.travora.app.ui.profile.ProfileActivity;
 import com.travora.app.ui.recommendations.RecommendationsActivity;
 
-import java.util.ArrayList;
-
 public class AddReviewActivity extends AppCompatActivity {
 
     private Places place;
@@ -39,7 +37,6 @@ public class AddReviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_layout_addreview);
-        // ✅ AGGRESSIVE FIX: Completely strip all tinting from the nav bar and its items
         navView = findViewById(R.id.nav_bar);
         if (navView != null) {
             navView.setItemIconTintList(null); // Remove global tint
@@ -48,7 +45,6 @@ public class AddReviewActivity extends AppCompatActivity {
                 MenuItem item = menu.getItem(i);
                 Drawable icon = item.getIcon();
                 if (icon != null) {
-                    // Force the drawable to ignore any system tinting
                     Drawable wrappedIcon = DrawableCompat.wrap(icon.mutate());
                     DrawableCompat.setTintList(wrappedIcon, null);
                     item.setIcon(wrappedIcon);
@@ -63,14 +59,16 @@ public class AddReviewActivity extends AppCompatActivity {
 
             if (id == R.id.nav_home) {
                 startActivity(new Intent(this, RecommendationsActivity.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 return true;
 
             } else if (id == R.id.nav_profile) {
                 startActivity(new Intent(this, ProfileActivity.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 return true;
 
             } else if (id == R.id.nav_back) {
-                finish(); // 🔙 goes back
+                finish();
                 return true;
             }
 
@@ -80,10 +78,8 @@ public class AddReviewActivity extends AppCompatActivity {
         UserManager.loadFromPrefs(this);
         viewModel = new ViewModelProvider(this).get(ReviewsViewModel.class);
 
-        // ===== GET PLACE =====
         place = (Places) getIntent().getSerializableExtra("place");
 
-        // ===== INIT UI =====
         reviewInput = findViewById(R.id.review_input);
         ratingBar = findViewById(R.id.place_ratingBar);
 
@@ -91,7 +87,6 @@ public class AddReviewActivity extends AppCompatActivity {
         touristButton = findViewById(R.id.Tourist_button);
         submitButton = findViewById(R.id.submit_review_button);
 
-        // ===== BUTTON TOGGLE =====
         highlightSelected(localButton, touristButton);
 
         localButton.setOnClickListener(v -> {
@@ -104,7 +99,6 @@ public class AddReviewActivity extends AppCompatActivity {
             highlightSelected(touristButton, localButton);
         });
 
-        // ===== SUBMIT =====
         submitButton.setOnClickListener(v -> {
 
             String text = reviewInput.getText().toString().trim();

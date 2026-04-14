@@ -41,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(LoginActivity.this, LocationActivity.class);
                 startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
             } else {
                 Toast.makeText(LoginActivity.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
@@ -60,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         sign_up.setOnClickListener(view -> {
             Intent toRegistration = new Intent(LoginActivity.this, RegistrationActivity.class);
             startActivity(toRegistration);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
 
         forgot_password.setOnClickListener(view ->

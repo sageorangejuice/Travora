@@ -42,6 +42,7 @@ public class ProfilingActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
             } else {
                 String msg = (response != null && response.getMessage() != null)
@@ -51,7 +52,6 @@ public class ProfilingActivity extends AppCompatActivity {
             }
         });
 
-        // ===== BUDGET =====
         Button budgetBtn = findViewById(R.id.budget_button);
         Button moderateBtn = findViewById(R.id.moderate_button);
         Button luxuryBtn = findViewById(R.id.luxury_button);
@@ -62,7 +62,6 @@ public class ProfilingActivity extends AppCompatActivity {
                 value -> selectedBudget = value
         );
 
-        // ===== DIET =====
         Button vegBtn = findViewById(R.id.vegetarian_button);
         Button halalBtn = findViewById(R.id.halal_button);
         Button noneBtn = findViewById(R.id.none_button);
@@ -73,7 +72,6 @@ public class ProfilingActivity extends AppCompatActivity {
                 value -> selectedDiet = value
         );
 
-        // ===== ACTIVITY =====
         Button culturalBtn = findViewById(R.id.cultural_button);
         Button natureBtn = findViewById(R.id.nature_button);
         Button shoppingBtn = findViewById(R.id.shopping_button);
@@ -84,7 +82,6 @@ public class ProfilingActivity extends AppCompatActivity {
                 value -> selectedActivity = value
         );
 
-        // ===== DINING =====
         Button localBtn = findViewById(R.id.local_fave_button);
         Button casualBtn = findViewById(R.id.casual_button);
         Button fineBtn = findViewById(R.id.fine_button);
@@ -95,7 +92,6 @@ public class ProfilingActivity extends AppCompatActivity {
                 value -> selectedDining = value
         );
 
-        // ===== FINISH BUTTON =====
         Button finishBtn = findViewById(R.id.finish_profiling_button);
 
         finishBtn.setOnClickListener(v -> {

@@ -27,8 +27,13 @@ public class ProfileActivity extends AppCompatActivity {
         UserManager.loadFromPrefs(this);
 
         TextView usernameValue = findViewById(R.id.username_value);
+        TextView avatarInitial = findViewById(R.id.avatar_initial);
         if (UserManager.getUser() != null) {
-            usernameValue.setText(UserManager.getUser().getUsername());
+            String username = UserManager.getUser().getUsername();
+            usernameValue.setText(username);
+            if (!username.isEmpty()) {
+                avatarInitial.setText(String.valueOf(username.charAt(0)).toUpperCase());
+            }
         }
 
         MaterialButton logoutButton = findViewById(R.id.logout_button);
@@ -56,6 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
             int id = item.getItemId();
             if (id == R.id.nav_home) {
                 startActivity(new Intent(this, RecommendationsActivity.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 return true;
             } else if (id == R.id.nav_profile) {
                 return true; // already here

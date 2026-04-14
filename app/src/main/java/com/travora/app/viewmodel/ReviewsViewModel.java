@@ -2,6 +2,7 @@ package com.travora.app.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import com.travora.app.model.Places;
@@ -14,7 +15,6 @@ import java.util.List;
 
 public class ReviewsViewModel extends ViewModel {
 
-    // Fallback shown when a place has no reviews in the DB yet
     private static final List<Reviews> SAMPLE_REVIEWS = Arrays.asList(
             new Reviews("Local",   "Babu Suresh33",         "Amazing atmosphere!", 4.5f),
             new Reviews("Local",   "Thamotharam S/O Muthu", "Good, but a bit crowded.", 3.5f),
@@ -25,6 +25,8 @@ public class ReviewsViewModel extends ViewModel {
     private final PlacesRepository repository = new PlacesRepository();
     private final MutableLiveData<List<Reviews>> reviewsLiveData = new MutableLiveData<>();
     private List<Reviews> allReviews = new ArrayList<>();
+    private MutableLiveData<List<Reviews>> fetchResult;
+    private Observer<List<Reviews>> fetchObserver;
 
     public LiveData<List<Reviews>> getReviews() {
         return reviewsLiveData;
@@ -38,16 +40,20 @@ public class ReviewsViewModel extends ViewModel {
             return;
         }
 
-        MutableLiveData<List<Reviews>> result = new MutableLiveData<>();
-        result.observeForever(reviews -> {
+        if (fetchResult != null && fetchObserver != null) {
+            fetchResult.removeObserver(fetchObserver);
+        }
+        fetchResult = new MutableLiveData<>();
+        fetchObserver = reviews -> {
             if (reviews != null && !reviews.isEmpty()) {
                 allReviews = reviews;
             } else {
                 allReviews = SAMPLE_REVIEWS;
             }
             reviewsLiveData.setValue(allReviews);
-        });
-        repository.fetchReviews(placeId, result);
+        };
+        fetchResult.observeForever(fetchObserver);
+        repository.fetchReviews(placeId, fetchResult);
     }
 
     public void filterByType(String type) {
@@ -73,5 +79,13 @@ public class ReviewsViewModel extends ViewModel {
 
     public void submitReview(Reviews review) {
         repository.submitReview(review);
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        if (fetchResult != null && fetchObserver != null) {
+            fetchResult.removeObserver(fetchObserver);
+        }
     }
 }

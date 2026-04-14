@@ -52,6 +52,7 @@ public class RegistrationActivity extends AppCompatActivity {
             intent.putExtra("phoneNumber", phoneNumber);
             intent.putExtra("password", password);
             startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
     }
 

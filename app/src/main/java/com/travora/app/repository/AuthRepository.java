@@ -17,7 +17,6 @@ public class AuthRepository {
     private static final String TAG = "AuthRepository";
 
     public void login(LoginRequest request, MutableLiveData<LoginResponse> loginResult) {
-        // ✅ Updated to log Email instead of Username
         Log.d(TAG, "login() called - username: " + request.getUsername());
         RetrofitClient.getApiService().login(request).enqueue(new Callback<LoginResponse>() {
             @Override
@@ -28,7 +27,6 @@ public class AuthRepository {
                     loginResult.postValue(response.body());
                 } else {
                     Log.w(TAG, "login failed - code: " + response.code());
-                    // ✅ Fixed: LoginResponse now expects (boolean, String)
                     loginResult.postValue(new LoginResponse(false, null));
                 }
             }
