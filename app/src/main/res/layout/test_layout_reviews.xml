@@ -1,142 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/test_background_recommendations">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Review Page"
-        android:alpha="0.3"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        tools:ignore="MissingConstraints" />
-
-    <LinearLayout
-        android:id="@+id/main_vertical_layout"
+    <com.travora.app.ui.anim.BubbleBackgroundView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:gravity="center_horizontal"
-        tools:ignore="MissingConstraints">
-        <TextView
-            android:id="@+id/activity_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Reviews"
-            android:textSize="60sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_marginBottom="-20dp"/>
+        android:layout_height="match_parent" />
 
-
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
         <LinearLayout
-            android:id="@+id/categories_button_row"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="8dp">
+            android:id="@+id/main_vertical_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:gravity="center_horizontal">
 
-            <!-- First button -->
-            <Button
-                android:id="@+id/local"
+            <TextView
+                android:id="@+id/activity_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Local"
-                android:textStyle=""
-                android:textSize="15sp"
+                android:text="Reviews"
+                android:textSize="60sp"
                 android:textColor="@color/white"
-                android:background="@android:color/transparent"
-                android:paddingStart="0dp"
-                android:paddingEnd="0dp"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
+                android:textStyle="bold"
+                android:layout_marginBottom="-20dp"/>
 
-            <!-- Space between buttons -->
-            <Space
-                android:layout_width="16dp"
-                android:layout_height="wrap_content" />
-
-            <!-- Second button -->
-            <Button
-                android:id="@+id/tourist"
+            <LinearLayout
+                android:id="@+id/categories_button_row"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tourist"
-                android:textStyle=""
-                android:textSize="15dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="8dp">
+
+                <Button
+                    android:id="@+id/local"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Local"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+
+                <Space
+                    android:layout_width="16dp"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/tourist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tourist"
+                    android:textSize="15dp"
+                    android:textColor="@color/white"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/place_image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="Item Image"
+                android:clipToOutline="true"
+                android:layout_marginTop="16dp"
+                tools:src="@drawable/sample_image" />
+
+            <RatingBar
+                android:id="@+id/place_ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:stepSize="0.5"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/place_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Sample Title"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                tools:text="Title Placeholder"/>
+
+            <TextView
+                android:id="@+id/place_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Sample Description"
+                android:textSize="14sp"
+                android:textColor="#DDFFFFFF"
+                tools:text="Description Placeholder"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/reviews_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="8dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/add_review_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Write a review"
+                android:textStyle="bold"
+                android:textSize="25dp"
                 android:textColor="@color/white"
-                android:background="@android:color/transparent"
-                android:paddingStart="0dp"
-                android:paddingEnd="0dp"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
-
-
+                app:backgroundTint="#50FFFFFF"
+                app:strokeWidth="0dp"
+                app:strokeColor="#FFFFFF"
+                app:rippleColor="#70FFFFFF"
+                android:layout_marginTop="8dp"/>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center_vertical">
-
-        </LinearLayout>
-        <ImageView
-            android:id="@+id/place_image"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:contentDescription="Item Image"
-            android:clipToOutline="true"
-            tools:src="@drawable/sample_image" /> <!-- placeholder -->
-
-        <!-- Title -->
-        <RatingBar
-            android:id="@+id/place_ratingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numStars="5"
-            android:stepSize="0.5"/>
-
-        <TextView
-            android:id="@+id/place_title"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/nav_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Sample Title"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            tools:text="Title Placeholder"/>
+            android:layout_gravity="bottom"
+            app:menu="@menu/nav_bar"
+            app:itemIconTint="@null"
+            app:itemTextColor="@color/white"
+            android:background="#40000000"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <!-- Description -->
-        <TextView
-            android:id="@+id/place_desc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Sample Description"
-            android:textSize="14sp"
-            android:textColor="#DDFFFFFF"
-            tools:text="Description Placeholder"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/reviews_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-
-    </LinearLayout>
-
-
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

@@ -1,57 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/test_background_start">
+    android:background="@drawable/test_background_login">
 
-    <!-- 🔵 BUBBLE ANIMATION -->
     <com.travora.app.ui.anim.BubbleBackgroundView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- 🟣 UI CONTENT -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <ImageView
-            android:id="@+id/travora_icon"
+        <TextView
+            android:id="@+id/where_to"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:scaleX="5"
-            android:scaleY="5"
-            android:src="@drawable/test_travora"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="Where to"
+            android:textSize="60dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginBottom="30dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.7" />
-
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/start_button"
+            android:id="@+id/location_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Let's Go!"
+            android:text="Singapore"
             android:textStyle="bold"
             android:textSize="40dp"
             android:textColor="@color/white"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintVertical_bias="0.7"
             app:backgroundTint="#50FFFFFF"
             app:strokeWidth="0dp"
             app:strokeColor="#FFFFFF"
-            app:rippleColor="#70FFFFFF"/>
+            app:rippleColor="#70FFFFFF"
+            app:layout_constraintTop_toBottomOf="@+id/where_to"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </FrameLayout>

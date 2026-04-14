@@ -35,7 +35,6 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ReviewsAdapter.ViewHolder holder, int position) {
         Reviews review = reviewList.get(position);
-        holder.type.setText(review.getType());
         holder.username.setText(review.getUsername());
         holder.ratingBar.setRating(review.getUserRating());
         holder.reviewText.setText(review.getReview());
@@ -50,15 +49,12 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         RatingBar ratingBar;
         TextView reviewText;
         TextView username;
-        TextView type;
-
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             username = itemView.findViewById(R.id.item_username);
             ratingBar = itemView.findViewById(R.id.item_user_ratingBar);
             reviewText = itemView.findViewById(R.id.item_user_review);
-
         }
     }
 }

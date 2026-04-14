@@ -16,7 +16,8 @@ public class AuthRepository {
     private static final String TAG = "AuthRepository";
 
     public void login(LoginRequest request, MutableLiveData<LoginResponse> loginResult) {
-        Log.d(TAG, "login() called - username: " + request.getUsername());
+        // ✅ Updated to log Email instead of Username
+        Log.d(TAG, "login() called - email: " + request.getEmail());
         RetrofitClient.getApiService().login(request).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
@@ -25,15 +26,16 @@ public class AuthRepository {
                     Log.d(TAG, "login success - response: " + response.body().isSuccess());
                     loginResult.postValue(response.body());
                 } else {
-                    Log.w(TAG, "login failed - code: " + response.code() + " body: " + response.body());
-                    loginResult.postValue(new LoginResponse(false));
+                    Log.w(TAG, "login failed - code: " + response.code());
+                    // ✅ Fixed: LoginResponse now expects (boolean, String)
+                    loginResult.postValue(new LoginResponse(false, null));
                 }
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 Log.e(TAG, "login onFailure - " + t.getMessage(), t);
-                loginResult.postValue(new LoginResponse(false));
+                loginResult.postValue(new LoginResponse(false, null));
             }
         });
     }
@@ -49,14 +51,14 @@ public class AuthRepository {
                     registrationResult.postValue(response.body());
                 } else {
                     Log.w(TAG, "register failed - code: " + response.code());
-                    registrationResult.postValue(null);
+                    registrationResult.postValue(new RegistrationResponse(false, "Server Error"));
                 }
             }
 
             @Override
             public void onFailure(Call<RegistrationResponse> call, Throwable t) {
                 Log.e(TAG, "register onFailure - " + t.getMessage(), t);
-                registrationResult.postValue(null);
+                registrationResult.postValue(new RegistrationResponse(false, "Connection Error"));
             }
         });
     }

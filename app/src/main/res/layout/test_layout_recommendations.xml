@@ -1,122 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/test_background_recommendations">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Recommendations Page"
-        android:alpha="0.3"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        tools:ignore="MissingConstraints" />
-app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/main_vertical_layout"
+    <!-- 🔵 BUBBLE ANIMATION -->
+    <com.travora.app.ui.anim.BubbleBackgroundView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:gravity="center_horizontal"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:layout_height="match_parent" />
 
-        <TextView
-            android:id="@+id/where_to"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Where to?"
-            android:textSize="60sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_marginBottom="-20dp"/>
+    <!-- 🟣 UI CONTENT -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/categories_button_row"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="8dp">
-
-            <Button
-                android:id="@+id/dining_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dining"
-                android:textSize="15sp"
-                android:textColor="@color/white"
-                android:background="@android:color/transparent"
-                android:paddingStart="0dp"
-                android:paddingEnd="0dp"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
-
-            <Space
-                android:layout_width="16dp"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/activities_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Activities"
-                android:textSize="15dp"
-                android:textColor="@color/white"
-                android:background="@android:color/transparent"
-                android:paddingStart="0dp"
-                android:paddingEnd="0dp"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
+            android:id="@+id/main_vertical_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:gravity="center_horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-            <EditText
-                android:id="@+id/search_bar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="  Destination"
-                android:textColorHint="@color/white"
-                android:textStyle="italic"
-                android:textSize="20sp"
-                android:inputType="text"
-                android:padding="8dp"
-                android:background="#50FFFFFF"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/search_button"
+            <TextView
+                android:id="@+id/where_to"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Search"
+                android:text="Where to?"
+                android:textSize="60sp"
+                android:textColor="@color/white"
                 android:textStyle="bold"
-                android:textSize="15dp"
-                android:textColor="@color/white"
-                app:backgroundTint="#9060057f"/>
+                android:layout_marginBottom="-20dp"/>
+
+            <LinearLayout
+                android:id="@+id/categories_button_row"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="8dp">
+
+                <Button
+                    android:id="@+id/dining_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dining"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+
+                <Space
+                    android:layout_width="16dp"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/activities_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Activities"
+                    android:textSize="15dp"
+                    android:textColor="@color/white"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <EditText
+                    android:id="@+id/search_bar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="  Destination"
+                    android:textColorHint="@color/white"
+                    android:textStyle="italic"
+                    android:textSize="20sp"
+                    android:inputType="text"
+                    android:padding="8dp"
+                    android:background="#50FFFFFF"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/search_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Search"
+                    android:textStyle="bold"
+                    android:textSize="15dp"
+                    android:textColor="@color/white"
+                    app:backgroundTint="#50FFFFFF"
+                    app:strokeWidth="0dp"
+                    app:strokeColor="#FFFFFF"
+                    app:rippleColor="#70FFFFFF"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="16dp"/>
+
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/nav_bar"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="16dp"/>
-
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:menu="@menu/nav_bar"
+            app:itemIconTint="@null"
+            app:itemTextColor="@color/white"
+            android:background="#40000000"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

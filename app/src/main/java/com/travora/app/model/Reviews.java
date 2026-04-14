@@ -1,7 +1,9 @@
 package com.travora.app.model;
 
 
-public class Reviews {
+import java.io.Serializable;
+
+public class Reviews implements Serializable {
     private String type;
     private String username;
     private String review;
