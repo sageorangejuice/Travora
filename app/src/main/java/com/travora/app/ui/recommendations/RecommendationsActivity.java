@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +41,7 @@ public class RecommendationsActivity extends AppCompatActivity {
     private RecommendationsAdapter adapter;
     private RecommendationsViewModel viewModel;
     private ProgressBar progressBar;
+    private TextView emptyState;
     private BottomNavigationView navView;
 
     @Override
@@ -79,7 +81,8 @@ public class RecommendationsActivity extends AppCompatActivity {
                 return true;
 
             } else if (id == R.id.nav_back) {
-                finish();
+                searchBar.setText("");
+                viewModel.search("");
                 return true;
             }
 
@@ -93,6 +96,7 @@ public class RecommendationsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
 
         progressBar = findViewById(R.id.progress_bar);
+        emptyState = findViewById(R.id.empty_state);
 
         adapter = new RecommendationsAdapter(new ArrayList<>());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -104,22 +108,39 @@ public class RecommendationsActivity extends AppCompatActivity {
             progressBar.setVisibility(View.GONE);
             if (places != null && !places.isEmpty()) {
                 adapter.updateList(places);
+                recyclerView.setVisibility(View.VISIBLE);
+                emptyState.setVisibility(View.GONE);
+            } else {
+                adapter.updateList(new ArrayList<>());
+                recyclerView.setVisibility(View.GONE);
+                emptyState.setVisibility(View.VISIBLE);
             }
         });
 
         diningButton.setOnClickListener(view -> {
+            searchBar.setText("");
             List<Places> dining = viewModel.getDiningList().getValue();
-            if (dining != null) adapter.updateList(dining);
+            if (dining != null && !dining.isEmpty()) {
+                adapter.updateList(dining);
+                recyclerView.setVisibility(View.VISIBLE);
+                emptyState.setVisibility(View.GONE);
+            }
         });
 
         activitiesButton.setOnClickListener(view -> {
+            searchBar.setText("");
             List<Places> activities = viewModel.getActivitiesList().getValue();
-            if (activities != null) adapter.updateList(activities);
+            if (activities != null && !activities.isEmpty()) {
+                adapter.updateList(activities);
+                recyclerView.setVisibility(View.VISIBLE);
+                emptyState.setVisibility(View.GONE);
+            }
         });
 
-        searchButton.setOnClickListener(view ->
-                Toast.makeText(this, "Search coming soon", Toast.LENGTH_SHORT).show()
-        );
+        searchButton.setOnClickListener(view -> {
+            String query = searchBar.getText().toString().trim();
+            viewModel.search(query);
+        });
 
         viewModel.loadPlaces();
     }

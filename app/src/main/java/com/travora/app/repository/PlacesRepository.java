@@ -18,9 +18,9 @@ public class PlacesRepository {
 
     private static final String TAG = "PlacesRepository";
 
-    public void fetchDining(MutableLiveData<List<Places>> diningResult) {
+    public void fetchDining(String username, MutableLiveData<List<Places>> diningResult) {
         Log.d(TAG, "fetchDining() - calling GET /api/places/dining");
-        RetrofitClient.getApiService().getTopDining().enqueue(new Callback<List<Places>>() {
+        RetrofitClient.getApiService().getTopDining(username).enqueue(new Callback<List<Places>>() {
             @Override
             public void onResponse(Call<List<Places>> call, Response<List<Places>> response) {
                 Log.d(TAG, "fetchDining onResponse - code: " + response.code());
@@ -43,9 +43,9 @@ public class PlacesRepository {
         });
     }
 
-    public void fetchActivities(MutableLiveData<List<Places>> activitiesResult) {
+    public void fetchActivities(String username, MutableLiveData<List<Places>> activitiesResult) {
         Log.d(TAG, "fetchActivities() - calling GET /api/places/activities");
-        RetrofitClient.getApiService().getTopActivities().enqueue(new Callback<List<Places>>() {
+        RetrofitClient.getApiService().getTopActivities(username).enqueue(new Callback<List<Places>>() {
             @Override
             public void onResponse(Call<List<Places>> call, Response<List<Places>> response) {
                 Log.d(TAG, "fetchActivities onResponse - code: " + response.code());

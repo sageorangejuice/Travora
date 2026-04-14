@@ -9,24 +9,12 @@
     app:cardElevation="6dp"
     app:cardBackgroundColor="#80FFFFFF"
     android:foreground="?android:attr/selectableItemBackground">
-    <Button
-        android:id="@+id/item_reviews"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent"
-        android:paddingStart="0dp"
-        android:paddingEnd="0dp"
-        android:minWidth="0dp"
-        android:minHeight="0dp"/>
-
-    <!-- LinearLayout inside CardView for content -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="12dp">
 
-        <!-- Image for the item -->
         <ImageView
             android:id="@+id/item_image"
             android:layout_width="match_parent"
@@ -38,27 +26,27 @@
 
         <RatingBar
             android:id="@+id/item_ratingBar"
+            style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:progressTint="#FFD700"
-            android:progressBackgroundTint="#CCCCCC"
-            android:isIndicator="true"
+            android:layout_marginTop="8dp"
             android:numStars="5"
-            android:stepSize="0.5"/>
+            android:stepSize="0.1"
+            android:isIndicator="true"
+            android:progressTint="#FFD700"
+            android:secondaryProgressTint="#80FFD700"/>
 
-        <!-- Title -->
         <TextView
             android:id="@+id/item_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:text="Sample Title"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="#FFFFFF"
             tools:text="Title Placeholder"/>
 
-        <!-- Description -->
         <TextView
             android:id="@+id/item_desc"
             android:layout_width="match_parent"
@@ -68,7 +56,6 @@
             android:textSize="14sp"
             android:textColor="#DDFFFFFF"
             tools:text="Description Placeholder"/>
-
 
     </LinearLayout>
 

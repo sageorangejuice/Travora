@@ -24,12 +24,24 @@ public class ReviewsViewModel extends ViewModel {
 
     private final PlacesRepository repository = new PlacesRepository();
     private final MutableLiveData<List<Reviews>> reviewsLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Float> averageRating = new MutableLiveData<>();
     private List<Reviews> allReviews = new ArrayList<>();
     private MutableLiveData<List<Reviews>> fetchResult;
     private Observer<List<Reviews>> fetchObserver;
 
     public LiveData<List<Reviews>> getReviews() {
         return reviewsLiveData;
+    }
+
+    public LiveData<Float> getAverageRating() {
+        return averageRating;
+    }
+
+    private float computeAverage(List<Reviews> reviews) {
+        if (reviews == null || reviews.isEmpty()) return 0f;
+        float sum = 0f;
+        for (Reviews r : reviews) sum += r.getUserRating();
+        return sum / reviews.size();
     }
 
     public void loadReviews(Places place) {
@@ -64,10 +76,12 @@ public class ReviewsViewModel extends ViewModel {
             }
         }
         reviewsLiveData.setValue(filtered);
+        averageRating.setValue(computeAverage(filtered));
     }
 
     public void showAll() {
         reviewsLiveData.setValue(allReviews);
+        averageRating.setValue(computeAverage(allReviews));
     }
 
     public void addReview(Reviews review) {
@@ -75,6 +89,7 @@ public class ReviewsViewModel extends ViewModel {
         updated.add(review);
         allReviews = updated;
         reviewsLiveData.setValue(allReviews);
+        averageRating.setValue(computeAverage(allReviews));
     }
 
     public void submitReview(Reviews review) {
