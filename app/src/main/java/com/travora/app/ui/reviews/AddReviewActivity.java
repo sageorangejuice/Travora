@@ -9,14 +9,17 @@ import android.widget.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.travora.app.R;
 import com.travora.app.model.Places;
 import com.travora.app.model.Reviews;
 import com.travora.app.model.UserManager;
+import com.travora.app.viewmodel.ReviewsViewModel;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.travora.app.ui.profile.ProfileActivity;
 import com.travora.app.ui.recommendations.RecommendationsActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
@@ -30,6 +33,7 @@ public class AddReviewActivity extends AppCompatActivity {
 
     private String selectedType = "Local";
     private BottomNavigationView navView;
+    private ReviewsViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +66,7 @@ public class AddReviewActivity extends AppCompatActivity {
                 return true;
 
             } else if (id == R.id.nav_profile) {
-                Toast.makeText(AddReviewActivity.this, "Feature Coming Soon", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, ProfileActivity.class));
                 return true;
 
             } else if (id == R.id.nav_back) {
@@ -72,6 +76,9 @@ public class AddReviewActivity extends AppCompatActivity {
 
             return false;
         });
+
+        UserManager.loadFromPrefs(this);
+        viewModel = new ViewModelProvider(this).get(ReviewsViewModel.class);
 
         // ===== GET PLACE =====
         place = (Places) getIntent().getSerializableExtra("place");
@@ -108,21 +115,16 @@ public class AddReviewActivity extends AppCompatActivity {
                 return;
             }
 
-            // 🔥 GET USERNAME
             String username = "Anonymous";
             if (UserManager.getUser() != null) {
                 username = UserManager.getUser().getUsername();
             }
 
-            Reviews newReview = new Reviews(
-                    selectedType,
-                    username,
-                    text,
-                    rating
-            );
+            Reviews newReview = new Reviews(selectedType, username, text, rating);
+            newReview.setPlaceId(place.getPlaceId());
 
-            // In a real app, you'd add this to the database. 
-            // For now, we pass it back to the ReviewsActivity.
+            viewModel.submitReview(newReview);
+
             Intent resultIntent = new Intent();
             resultIntent.putExtra("new_review", newReview);
             setResult(RESULT_OK, resultIntent);

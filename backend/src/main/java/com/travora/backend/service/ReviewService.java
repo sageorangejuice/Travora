@@ -18,4 +18,11 @@ public class ReviewService {
     public List<Review> getReviewsForPlace(String placeId) {
         return reviewRepository.findByPlaceId(placeId);
     }
+
+    public Review saveReview(Review review) {
+        reviewRepository.findByPlaceIdAndUsername(review.getPlaceId(), review.getUsername())
+                .ifPresent(existing -> review.setId(existing.getId()));
+        review.setCreatedAt(java.time.LocalDateTime.now());
+        return reviewRepository.save(review);
+    }
 }

@@ -35,6 +35,9 @@ public abstract class Place {
     @Column(name = "photo_reference", columnDefinition = "TEXT")
     private String photoReference;
 
+    @Column(name = "description", length = 2000)
+    private String description;
+
     @JsonIgnore
     @Column(name = "photo_data", columnDefinition = "bytea")
     private byte[] photoData;
@@ -68,6 +71,9 @@ public abstract class Place {
 
     public String getPhotoReference() { return photoReference; }
     public void setPhotoReference(String photoReference) { this.photoReference = photoReference; }
+
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
     public byte[] getPhotoData() { return photoData; }
     public void setPhotoData(byte[] photoData) { this.photoData = photoData; }

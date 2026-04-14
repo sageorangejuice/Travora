@@ -18,7 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.travora.app.R;
+import com.travora.app.model.UserManager;
 import com.travora.app.ui.authentication.LoginActivity;
+import com.travora.app.ui.profile.ProfileActivity;
 import com.travora.app.viewmodel.RecommendationsViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -39,6 +41,7 @@ public class RecommendationsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_layout_recommendations);
+        UserManager.loadFromPrefs(this);
 
         // ✅ AGGRESSIVE FIX: Completely strip all tinting from the nav bar and its items
         navView = findViewById(R.id.nav_bar);
@@ -67,7 +70,7 @@ public class RecommendationsActivity extends AppCompatActivity {
                 return true;
 
             } else if (id == R.id.nav_profile) {
-                Toast.makeText(RecommendationsActivity.this, "Feature Coming Soon", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, ProfileActivity.class));
                 return true;
 
             } else if (id == R.id.nav_back) {
@@ -111,7 +114,10 @@ public class RecommendationsActivity extends AppCompatActivity {
         );
 
         viewModel.loadPlaces();
-
     }
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }

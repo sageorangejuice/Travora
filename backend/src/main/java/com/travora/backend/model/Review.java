@@ -18,7 +18,7 @@ public class Review {
     @Column(name = "username", nullable = false)
     private String username;
 
-    @Column(name = "review", columnDefinition = "TEXT", nullable = false)
+    @Column(name = "review", length = 2000, nullable = false)
     private String review;
 
     @Column(name = "user_rating", nullable = false)
@@ -32,6 +32,7 @@ public class Review {
     private LocalDateTime createdAt;
 
     public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public String getPlaceId() { return placeId; }
     public void setPlaceId(String placeId) { this.placeId = placeId; }

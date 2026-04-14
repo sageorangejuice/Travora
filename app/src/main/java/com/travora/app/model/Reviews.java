@@ -8,6 +8,7 @@ public class Reviews implements Serializable {
     private String username;
     private String review;
     private float userRating;
+    private String placeId;
 
     public Reviews(String type, String username, String review, float userRating) {
         this.type = type;
@@ -16,17 +17,10 @@ public class Reviews implements Serializable {
         this.userRating = userRating;
     }
 
-    public String getType(){
-        return type;
-    }
-    public String getUsername(){
-        return username;
-    }
-    public String getReview(){
-        return review;
-    }
-    public float getUserRating(){
-        return userRating;
-    }
-
+    public String getType(){ return type; }
+    public String getUsername(){ return username; }
+    public String getReview(){ return review; }
+    public float getUserRating(){ return userRating; }
+    public String getPlaceId(){ return placeId; }
+    public void setPlaceId(String placeId){ this.placeId = placeId; }
 }

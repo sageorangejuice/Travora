@@ -2,6 +2,7 @@ package com.travora.backend.service;
 
 import com.travora.backend.model.LoginRequest;
 import com.travora.backend.model.LoginResponse;
+import com.travora.backend.model.PreferencesRequest;
 import com.travora.backend.model.RegistrationRequest;
 import com.travora.backend.model.RegistrationResponse;
 import com.travora.backend.model.User;
@@ -25,36 +26,51 @@ public class AuthService {
     }
 
     public LoginResponse login(LoginRequest payload) {
-        logger.debug("[AUTH SERVICE] Login attempt for username: '{}'", payload.getUsername());
+        logger.debug("[AUTH SERVICE] Login attempt for email: '{}'", payload.getUsername());
 
-        User user = userRepository.findByUsername(payload.getUsername());
+        User user = userRepository.findByEmail(payload.getUsername());
 
         if (user == null) {
-            logger.debug("[AUTH SERVICE] No user found for username: '{}'", payload.getUsername());
-            return new LoginResponse(false);
+            logger.debug("[AUTH SERVICE] No user found for email: '{}'", payload.getUsername());
+            return new LoginResponse(false, null);
         }
 
         logger.debug("[AUTH SERVICE] User found. Verifying password...");
         boolean passwordMatch = user.verifyPassword(payload.getPassword());
         logger.debug("[AUTH SERVICE] Password match: {}", passwordMatch);
-        return new LoginResponse(passwordMatch);
+        return new LoginResponse(passwordMatch, passwordMatch ? user.getUsername() : null);
+    }
+
+    public boolean savePreferences(PreferencesRequest payload) {
+        User user = userRepository.findByUsername(payload.getUsername());
+        if (user == null) return false;
+        user.setPrefBudget(payload.getBudget());
+        user.setPrefDiet(payload.getDiet());
+        user.setPrefActivity(payload.getActivity());
+        user.setPrefDining(payload.getDining());
+        userRepository.save(user);
+        return true;
     }
 
     public RegistrationResponse register(RegistrationRequest payload) {
         logger.debug("[AUTH SERVICE] Register attempt for username: '{}'", payload.getUsername());
 
-        if (userRepository.existsByUsername(payload.getUsername())) {
-            logger.debug("[AUTH SERVICE] Username already exists: '{}'", payload.getUsername());
+        if (userRepository.existsByEmail(payload.getEmail())) {
+            logger.debug("[AUTH SERVICE] Email already exists: '{}'", payload.getEmail());
             return new RegistrationResponse(false, "An account with this email already exists");
         }
 
         try {
             User user = new User();
             user.setUsername(payload.getUsername());
+            user.setEmail(payload.getEmail());
             user.setPassword(passwordEncoder.encode(payload.getPassword()));
             user.setCreatedAt(OffsetDateTime.now());
-            user.setFullName(payload.getFullName());
             user.setPhoneNumber(payload.getPhoneNumber());
+            user.setPrefBudget(payload.getPrefBudget());
+            user.setPrefDiet(payload.getPrefDiet());
+            user.setPrefActivity(payload.getPrefActivity());
+            user.setPrefDining(payload.getPrefDining());
             userRepository.save(user);
             logger.debug("[AUTH SERVICE] User saved successfully: '{}'", payload.getUsername());
             return new RegistrationResponse(true, "Registration successful");

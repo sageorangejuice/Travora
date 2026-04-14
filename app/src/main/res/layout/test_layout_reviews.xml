@@ -18,10 +18,12 @@
         <LinearLayout
             android:id="@+id/main_vertical_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:orientation="vertical"
             android:padding="16dp"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/nav_bar">
 
             <TextView
                 android:id="@+id/activity_name"
@@ -39,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="0dp">
 
                 <Button
                     android:id="@+id/local"
@@ -79,7 +81,7 @@
                 android:scaleType="centerCrop"
                 android:contentDescription="Item Image"
                 android:clipToOutline="true"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="0dp"
                 tools:src="@drawable/sample_image" />
 
             <RatingBar
@@ -88,13 +90,16 @@
                 android:layout_height="wrap_content"
                 android:numStars="5"
                 android:stepSize="0.5"
-                android:layout_marginTop="8dp"/>
+                android:isIndicator="true"
+                android:progressTint="#FFD700"
+                android:progressBackgroundTint="#CCCCCC"
+                android:layout_marginTop="2dp"/>
 
             <TextView
                 android:id="@+id/place_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="2dp"
                 android:text="Sample Title"
                 android:textSize="18sp"
                 android:textStyle="bold"

@@ -9,8 +9,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,12 +16,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.travora.app.R;
 import com.travora.app.model.Places;
 import com.travora.app.model.Reviews;
 import com.travora.app.network.RetrofitClient;
+import com.travora.app.ui.profile.ProfileActivity;
 import com.travora.app.ui.recommendations.RecommendationsActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.travora.app.viewmodel.ReviewsViewModel;
 
 
 import java.util.ArrayList;
@@ -33,9 +34,10 @@ public class ReviewsActivity extends AppCompatActivity {
 
     private ReviewsAdapter adapter;
     private List<Reviews> allReviews;
-    private Places place; // ✅ MAKE IT GLOBAL
+    private Places place;
     private String photoRef;
     private BottomNavigationView navView;
+    private ReviewsViewModel viewModel;
 
 
     @Override
@@ -69,7 +71,7 @@ public class ReviewsActivity extends AppCompatActivity {
                 return true;
 
             } else if (id == R.id.nav_profile) {
-                Toast.makeText(ReviewsActivity.this, "Feature Coming Soon", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, ProfileActivity.class));
                 return true;
 
             } else if (id == R.id.nav_back) {
@@ -89,7 +91,7 @@ public class ReviewsActivity extends AppCompatActivity {
         RatingBar ratingBar = findViewById(R.id.place_ratingBar);
 
         title.setText(place.getName());
-        description.setText(place.getDescription());
+        description.setText(place.getDescription() != null ? place.getDescription() : "");
         photoRef = place.getPhotoReference();
         ratingBar.setRating(place.getRating().floatValue());
 
@@ -107,19 +109,26 @@ public class ReviewsActivity extends AppCompatActivity {
         }
 
         // ✅ SET REVIEWS
-        allReviews = place.getSampleReviews(); // or getReviewsList()
+        allReviews = new ArrayList<>();
         RecyclerView reviewsRecycler = findViewById(R.id.reviews_recycler_view);
         adapter = new ReviewsAdapter(allReviews);
         reviewsRecycler.setLayoutManager(new LinearLayoutManager(this));
         reviewsRecycler.setAdapter(adapter);
+
+        viewModel = new ViewModelProvider(this).get(ReviewsViewModel.class);
+        viewModel.getReviews().observe(this, reviews -> {
+            allReviews = reviews;
+            adapter.updateList(reviews);
+        });
+        viewModel.loadReviews(place);
 
         // ✅ BUTTONS
         Button buttonLocal = findViewById(R.id.local);
         Button buttonTourist = findViewById(R.id.tourist);
         Button buttonAddReview = findViewById(R.id.add_review_button);
 
-        buttonLocal.setOnClickListener(v -> filterReviewsByType("Local"));
-        buttonTourist.setOnClickListener(v -> filterReviewsByType("Tourist"));
+        buttonLocal.setOnClickListener(v -> viewModel.filterByType("Local"));
+        buttonTourist.setOnClickListener(v -> viewModel.filterByType("Tourist"));
 
         // 🔥 IMPORTANT FIX
         buttonAddReview.setOnClickListener(view -> {
@@ -136,28 +145,12 @@ public class ReviewsActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
 
-        if (requestCode == 100 && resultCode == RESULT_OK) {
-            Places updatedPlace = (Places) data.getSerializableExtra("updated_place");
-
-            if (updatedPlace != null) {
-                place = updatedPlace;
-
-                // ✅ UPDATE LIST
-                allReviews = place.getReviews();
-                adapter.updateList(allReviews);
+        if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
+            Reviews newReview = (Reviews) data.getSerializableExtra("new_review");
+            if (newReview != null) {
+                viewModel.addReview(newReview);
             }
         }
     }
 
-    private void filterReviewsByType(String type) {
-        List<Reviews> filtered = new ArrayList<>();
-
-        for (Reviews r : allReviews) {
-            if (r.getType().equalsIgnoreCase(type)) {
-                filtered.add(r);
-            }
-        }
-
-        adapter.updateList(filtered);
-    }
 }

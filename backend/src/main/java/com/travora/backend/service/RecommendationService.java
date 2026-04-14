@@ -14,6 +14,7 @@ public class RecommendationService {
 
     private final DiningRepository diningRepository;
     private final ActivityRepository activityRepository;
+    private final ScoringStrategy scoringStrategy;
 
     public RecommendationService(
             DiningRepository diningRepository,
