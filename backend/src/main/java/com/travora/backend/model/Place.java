@@ -3,6 +3,10 @@ package com.travora.backend.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @MappedSuperclass
 public abstract class Place {
@@ -42,6 +46,12 @@ public abstract class Place {
     @Column(name = "photo_data", columnDefinition = "bytea")
     private byte[] photoData;
 
+    @Column(name = "tags")
+    private String tags;
+
+    @Column(name = "price_level")
+    private Integer priceLevel;
+
     @Column(name = "last_updated")
     private LocalDateTime lastUpdated;
 
@@ -77,6 +87,21 @@ public abstract class Place {
 
     public byte[] getPhotoData() { return photoData; }
     public void setPhotoData(byte[] photoData) { this.photoData = photoData; }
+
+    public String getTags() { return tags; }
+    public void setTags(String tags) { this.tags = tags; }
+
+    public Integer getPriceLevel() { return priceLevel; }
+    public void setPriceLevel(Integer priceLevel) { this.priceLevel = priceLevel; }
+
+    public Set<String> getTagSet() {
+        if (tags == null || tags.isBlank()) return Collections.emptySet();
+        return new HashSet<>(Arrays.asList(tags.split(",")));
+    }
+
+    public void setTagSet(Set<String> tagSet) {
+        this.tags = tagSet.isEmpty() ? null : String.join(",", tagSet);
+    }
 
     public LocalDateTime getLastUpdated() { return lastUpdated; }
     public void setLastUpdated(LocalDateTime lastUpdated) { this.lastUpdated = lastUpdated; }

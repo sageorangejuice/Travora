@@ -80,6 +80,13 @@ public class AddReviewActivity extends AppCompatActivity {
 
         place = (Places) getIntent().getSerializableExtra("place");
 
+        TextView placeTitle = findViewById(R.id.place_title);
+        TextView placeDesc = findViewById(R.id.place_desc);
+        if (place != null) {
+            placeTitle.setText(place.getName());
+            placeDesc.setText(place.getAddress() != null ? place.getAddress() : "");
+        }
+
         reviewInput = findViewById(R.id.review_input);
         ratingBar = findViewById(R.id.place_ratingBar);
 

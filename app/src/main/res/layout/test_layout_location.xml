@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/test_background_login">
@@ -12,36 +11,110 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="32dp">
 
         <TextView
-            android:id="@+id/where_to"
+            android:id="@+id/app_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Where to"
-            android:textSize="60dp"
-            android:textColor="@color/white"
+            android:text="TRAVORA"
+            android:textSize="13sp"
+            android:textColor="#CCFFFFFF"
             android:textStyle="bold"
-            android:layout_marginBottom="30dp"
+            android:letterSpacing="0.3"
+            android:alpha="0"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="24dp" />
+
+        <LinearLayout
+            android:id="@+id/hero_block"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:alpha="0"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/location_button"
-            android:layout_width="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="80dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✈"
+                android:textSize="36sp"
+                android:textColor="#EEFFFFFF"
+                android:layout_marginBottom="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Where to?"
+                android:textSize="52sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your next adventure awaits"
+                android:textSize="15sp"
+                android:textColor="#CCFFFFFF"
+                android:letterSpacing="0.05" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottom_block"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Singapore"
-            android:textStyle="bold"
-            android:textSize="40dp"
-            android:textColor="@color/white"
-            app:backgroundTint="#50FFFFFF"
-            app:strokeWidth="0dp"
-            app:strokeColor="#FFFFFF"
-            app:rippleColor="#70FFFFFF"
-            app:layout_constraintTop_toBottomOf="@+id/where_to"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:alpha="0"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="48dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EXPLORING"
+                android:textSize="11sp"
+                android:textColor="#99FFFFFF"
+                android:letterSpacing="0.25"
+                android:layout_marginBottom="10dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/location_button"
+                android:layout_width="wrap_content"
+                android:layout_height="56dp"
+                android:text="  📍 Singapore"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:paddingStart="28dp"
+                android:paddingEnd="28dp"
+                app:backgroundTint="#40FFFFFF"
+                app:strokeWidth="1dp"
+                app:strokeColor="#80FFFFFF"
+                app:rippleColor="#60FFFFFF"
+                app:cornerRadius="28dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tap to explore"
+                android:textSize="12sp"
+                android:textColor="#80FFFFFF"
+                android:layout_marginTop="10dp" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

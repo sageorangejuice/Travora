@@ -25,10 +25,10 @@ public interface ApiService {
     Call<RegistrationResponse> register(@Body RegistrationRequest request);
 
     @GET("api/places/dining")
-    Call<List<Places>> getTopDining();
+    Call<List<Places>> getTopDining(@Query("username") String username);
 
     @GET("api/places/activities")
-    Call<List<Places>> getTopActivities();
+    Call<List<Places>> getTopActivities(@Query("username") String username);
 
     @GET("api/reviews")
     Call<List<Reviews>> getReviews(@Query("placeId") String placeId);

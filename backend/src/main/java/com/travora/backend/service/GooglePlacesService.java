@@ -15,7 +15,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Supplier;
 
 @Service
@@ -45,15 +47,51 @@ public class GooglePlacesService {
     @Scheduled(cron = "0 0 0 * * *")
     public void refreshAllPlaces() {
         System.out.println("Starting daily Google Places refresh...");
-        fetchAndSave("restaurant", diningRepository, Dining::new);
-        fetchAndSave("tourist_attraction", activityRepository, Activity::new);
+        fetchAndSave("restaurant", diningRepository, Dining::new, true);
+        fetchAndSave("tourist_attraction", activityRepository, Activity::new, false);
         System.out.println("Daily refresh complete.");
+    }
+
+    private Set<String> deriveTags(JsonNode node, boolean isDining) {
+        Set<String> tags = new HashSet<>();
+        int priceLevel = node.path("price_level").asInt(-1);
+        if (priceLevel >= 0) {
+            if (priceLevel <= 1) tags.add("budget");
+            else if (priceLevel == 2) tags.add("moderate");
+            else tags.add("luxury");
+
+            if (isDining) {
+                if (priceLevel <= 1) tags.add("local");
+                else if (priceLevel == 2) tags.add("casual");
+                else tags.add("fine_dining");
+            }
+        }
+        JsonNode types = node.path("types");
+        for (JsonNode t : types) {
+            switch (t.asText()) {
+                case "museum": case "art_gallery": case "church": case "mosque":
+                case "hindu_temple": case "place_of_worship": case "library":
+                    tags.add("cultural"); break;
+                case "park": case "campground": case "natural_feature":
+                case "zoo": case "aquarium":
+                    tags.add("nature"); break;
+                case "shopping_mall": case "store": case "clothing_store":
+                case "department_store": case "book_store":
+                    tags.add("shopping"); break;
+                case "vegetarian_restaurant": case "vegan_restaurant":
+                    tags.add("vegetarian"); break;
+                case "halal_restaurant":
+                    tags.add("halal"); break;
+            }
+        }
+        return tags;
     }
 
     private <T extends Place> void fetchAndSave(
             String placeType,
             PlaceRepository<T> repository,
-            Supplier<T> factory) {
+            Supplier<T> factory,
+            boolean isDining) {
 
         String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
                 + "?location=" + location
@@ -77,6 +115,9 @@ public class GooglePlacesService {
                 place.setName(node.get("name").asText());
                 place.setAddress(node.path("vicinity").asText(null));
                 place.setRating(node.path("rating").asDouble(0.0));
+                int priceLevel = node.path("price_level").asInt(-1);
+                if (priceLevel >= 0) place.setPriceLevel(priceLevel);
+                place.setTagSet(deriveTags(node, isDining));
                 String photoRef = node.path("photos").path(0).path("photo_reference").asText(null);
                 place.setPhotoReference(photoRef);
                 if (photoRef != null) {
@@ -100,6 +141,8 @@ public class GooglePlacesService {
                                 existing -> {
                                     existing.setRating(p.getRating());
                                     existing.setLastUpdated(p.getLastUpdated());
+                                    existing.setTags(p.getTags());
+                                    existing.setPriceLevel(p.getPriceLevel());
                                     if (p.getPhotoData() != null) {
                                         existing.setPhotoData(p.getPhotoData());
                                     }

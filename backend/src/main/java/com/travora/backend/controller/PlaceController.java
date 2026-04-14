@@ -30,13 +30,13 @@ public class PlaceController {
     }
 
     @GetMapping("/dining")
-    public ResponseEntity<List<Dining>> getDining() {
-        return ResponseEntity.ok(recommendationService.getTopDining());
+    public ResponseEntity<List<Dining>> getDining(@RequestParam(required = false) String username) {
+        return ResponseEntity.ok(recommendationService.getTopDining(username));
     }
 
     @GetMapping("/activities")
-    public ResponseEntity<List<Activity>> getActivities() {
-        return ResponseEntity.ok(recommendationService.getTopActivities());
+    public ResponseEntity<List<Activity>> getActivities(@RequestParam(required = false) String username) {
+        return ResponseEntity.ok(recommendationService.getTopActivities(username));
     }
 
     @GetMapping("/search")

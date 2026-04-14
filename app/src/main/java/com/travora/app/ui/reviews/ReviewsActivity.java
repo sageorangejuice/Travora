@@ -117,6 +117,7 @@ public class ReviewsActivity extends AppCompatActivity {
             adapter.updateList(reviews);
             emptyState.setVisibility(reviews == null || reviews.isEmpty() ? View.VISIBLE : View.GONE);
         });
+        viewModel.getAverageRating().observe(this, avg -> ratingBar.setRating(avg));
 
         progressBar.setVisibility(View.VISIBLE);
         viewModel.loadReviews(place);

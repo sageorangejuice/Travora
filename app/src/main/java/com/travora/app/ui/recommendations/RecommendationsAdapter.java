@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -46,20 +45,15 @@ public class RecommendationsAdapter extends RecyclerView.Adapter<Recommendations
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Places place = placesList.get(position);
         holder.title.setText(place.getName());
+
         String desc = (place.getDescription() != null && !place.getDescription().isEmpty())
                 ? place.getDescription()
                 : (place.getAddress() != null ? place.getAddress() : "");
         holder.description.setText(desc);
+
         holder.ratingBar.setRating(place.getRating().floatValue());
+
         String photoRef = place.getPhotoReference();
-        Button reviewsButton = holder.itemView.findViewById(R.id.item_reviews);
-
-        reviewsButton.setOnClickListener(view -> {
-            Intent intent = new Intent(view.getContext(), ReviewsActivity.class);
-            intent.putExtra("place", place);
-            view.getContext().startActivity(intent);
-        });
-
         if (photoRef != null && !photoRef.isEmpty()) {
             String photoUrl = RetrofitClient.BASE_URL + "api/places/photo?reference=" + photoRef + "&maxwidth=400";
             Glide.with(holder.image.getContext())
@@ -70,6 +64,12 @@ public class RecommendationsAdapter extends RecyclerView.Adapter<Recommendations
         } else {
             holder.image.setImageResource(R.drawable.placeholder_image);
         }
+
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), ReviewsActivity.class);
+            intent.putExtra("place", place);
+            view.getContext().startActivity(intent);
+        });
     }
 
     @Override
