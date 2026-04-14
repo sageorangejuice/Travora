@@ -11,7 +11,6 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // References place_id in either the dining or activities table
     @Column(name = "place_id", nullable = false)
     private String placeId;
 
@@ -24,7 +23,6 @@ public class Review {
     @Column(name = "user_rating", nullable = false)
     private Float userRating;
 
-    // "Local" or "Tourist"
     @Column(name = "type", nullable = false)
     private String type;
 

@@ -39,8 +39,6 @@ public class RecommendationService {
         return new SearchResult(diningResults, activityResults);
     }
 
-    // Single Responsibility: SearchResult only bundles mixed search output.
-    // Information Hiding: fields are private; accessed only through getters.
     public static class SearchResult {
         private final List<Dining> dining;
         private final List<Activity> activities;
