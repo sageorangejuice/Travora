@@ -7,12 +7,12 @@
     android:layout_height="match_parent"
     android:background="@drawable/test_background_start">
 
-    <!-- 🔵 BUBBLE ANIMATION -->
+
     <com.travora.app.ui.anim.BubbleBackgroundView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- 🟣 UI CONTENT -->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

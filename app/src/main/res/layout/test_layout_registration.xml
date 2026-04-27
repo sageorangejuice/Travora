@@ -59,7 +59,7 @@
                     android:singleLine="true"
                     android:layout_marginTop="4dp"/>
 
-                <!-- Email -->
+             
                 <TextView
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
                     android:singleLine="true"
                     android:layout_marginTop="4dp"/>
 
-                <!-- Password -->
+  
                 <TextView
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"

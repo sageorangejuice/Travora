@@ -32,7 +32,7 @@
                 android:textStyle="bold"
                 android:layout_marginBottom="32dp" />
 
-            <!-- Avatar circle with initial -->
+        
             <FrameLayout
                 android:layout_width="80dp"
                 android:layout_height="80dp"
