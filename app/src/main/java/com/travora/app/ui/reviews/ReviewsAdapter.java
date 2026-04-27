@@ -21,7 +21,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
     public void updateList(List<Reviews> newList) {
         reviewList.clear();
         reviewList.addAll(newList);
-        notifyDataSetChanged(); // tells RecyclerView to refresh
+        notifyDataSetChanged();
     }
 
     @NonNull

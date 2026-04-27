@@ -10,7 +10,7 @@
     app:cardBackgroundColor="#80FFFFFF"
     android:foreground="?android:attr/selectableItemBackground">
 
-    <!-- LinearLayout inside CardView for content -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,9 +34,9 @@
             android:progressTint="#FFD700"
             android:progressBackgroundTint="#CCCCCC"
             android:numStars="5"
-            android:stepSize="0.5"/><!-- placeholder -->
+            android:stepSize="0.5"/>
 
-        <!-- Title -->
+        
         <TextView
             android:id="@+id/item_title"
             android:layout_width="match_parent"
@@ -48,7 +48,7 @@
             android:textColor="#FFFFFF"
             tools:text="Title Placeholder"/>
 
-        <!-- Description -->
+    
         <TextView
             android:id="@+id/item_desc"
             android:layout_width="match_parent"
