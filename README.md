@@ -2,6 +2,8 @@
 
 Travora is a full-stack Android app that recommends places to visit and dine at, tailored to user interests. Built with Java, Spring Boot, and PostgreSQL. Features interest-based recommendations using a weighted scoring algorithm, local and tourist reviews, and a nightly venue data pipeline using Google Places API.
 
+https://github.com/user-attachments/assets/12be45b6-018d-48ff-9798-806742e53e4a
+
 ---
 
 ## Tech Stack
